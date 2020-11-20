@@ -57,6 +57,7 @@ const Register = observer(() => {
                       password: credentials.password
                     }).then(response => {
                       console.log(response);
+                      history.push('/register/activation-sent');
                     }).catch(error => {
                       console.log(error.response);
                     })
@@ -73,7 +74,7 @@ const Register = observer(() => {
         <Grid item xs={12}>
           <Button
             onClick={() => {
-             history.push("/login");
+             history.push("/register/");
             }}
             variant="contained"
             color="primary"
