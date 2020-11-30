@@ -3,18 +3,23 @@ import axios from "axios";
 import { observer, useLocalObservable } from "mobx-react-lite";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import Alert from '@material-ui/lab/Alert';
 
 const Register = observer(() => {
   const credentials = useLocalObservable(() => ({
     email: "",
-    password: ""
+    password: "",
+    error: null
   }));
+
+
 
   const history = useHistory();
 
   return (
     <>
       <Container className="container" stylmaxWidth="sm">
+        { credentials.error && <Alert severity="error">Something went wrong! {credentials.error}</Alert>}
         <Grid
           container
           className=""
@@ -57,9 +62,11 @@ const Register = observer(() => {
                       password: credentials.password
                     }).then(response => {
                       console.log(response);
-                      history.push('/register/activation-sent');
+                      history.push('/register/sent');
                     }).catch(error => {
+                      console.log("Error occured...");
                       console.log(error.response);
+                      credentials.error = error.response.data.message;
                     })
               }}
               variant="contained"

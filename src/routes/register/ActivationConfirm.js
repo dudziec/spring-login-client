@@ -10,7 +10,6 @@ const ActivationConfirm = () => {
     axios
       .get(`http://localhost:8081/confirm?key=${key}`)
       .then((res) => {
-          console.log(res)
           setResult(res.data);
       })
       .catch((err) => {
